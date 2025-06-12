@@ -1,0 +1,9 @@
+[project]
+name = "scratch-transformer"
+version = "0.0.1"
+description = "LM-from-scratch toy project"
+dependencies = ["torch", "tokenizers"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
