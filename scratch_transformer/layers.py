@@ -1,4 +1,4 @@
- """
+"""
  Core building blocks for the decoder‑only Transformer used in the
  `scratch_transformer` project.
 
@@ -8,7 +8,7 @@
  `torch`—to make the math crystal‑clear and easy to unit‑test.
  
  Shapes follow the GPT convention: **(batch, seq_len, d_model)**.
- """
+"""
 from __future__ import annotations
 
 import math
@@ -188,11 +188,24 @@ class DecoderBlock(nn.Module):
     def __init__(
         self,
         d_model: int,
-        num_heads: int,
-        d_ff: int,
-        dropout: float = 0.1,
+        num_heads: int | None = None,
+        *,
+        n_heads:    int | None = None,  # alias support
+        d_ff:       int | None = None,  # now truly optional
+        dropout:    float      = 0.1,
     ) -> None:
         super().__init__()
+
+        # alias handling
+        if num_heads is None and n_heads is not None:
+            num_heads = n_heads
+        if num_heads is None:
+            raise ValueError("Must specify num_heads or n_heads")
+
+        # provide default feed-forward size
+        if d_ff is None:
+            d_ff = 4 * d_model
+
         self.ln1 = nn.LayerNorm(d_model)
         self.self_attn = MultiHeadAttention(d_model, num_heads, dropout)
         self.ln2 = nn.LayerNorm(d_model)
