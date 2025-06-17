@@ -1,12 +1,12 @@
 """
- Core building blocks for the decoder‑only Transformer used in the
+ Core building blocks for the decoder-only Transformer used in the
  `scratch_transformer` project.
 
- Everything here is **framework‑agnostic** except for the obvious PyTorch
- dependencies, so you can copy‑paste these classes into any model script or
+ Everything here is **framework-agnostic** except for the obvious PyTorch
+ dependencies, so you can copy-paste these classes into any model script or
  notebook.  Each module is deliberately minimal—no external libraries beyond
- `torch`—to make the math crystal‑clear and easy to unit‑test.
- 
+ `torch`—to make the math crystal-clear and easy to unit-test.
+
  Shapes follow the GPT convention: **(batch, seq_len, d_model)**.
 """
 from __future__ import annotations
@@ -40,12 +40,12 @@ def causal_mask(seq_len: int, device: torch.device | str = "cpu") -> torch.Tenso
     The mask is designed to be broadcast across (batch, num_heads) dims.
     """
     mask = torch.full((seq_len, seq_len), float("-inf"), device=device)
-    mask.triu_(1)  # upper‑triangular (*strict* upper part)
+    mask.triu_(1)  # upper-triangular (*strict* upper part)
     return mask.unsqueeze(0).unsqueeze(0)  # (1,1,L,L)
 
 
 # -----------------------------------------------------------------------------
-# 1. Scaled dot‑product attention (single head)
+# 1. Scaled dot-product attention (single head)
 # -----------------------------------------------------------------------------
 
 class ScaledDotProductAttention(nn.Module):
@@ -72,11 +72,11 @@ class ScaledDotProductAttention(nn.Module):
 
 
 # -----------------------------------------------------------------------------
-# 2. Multi‑head attention
+# 2. Multi-head attention
 # -----------------------------------------------------------------------------
 
 class MultiHeadAttention(nn.Module):
-    """Standard multi‑head attention with casual masking support.
+    """Standard multi-head attention with casual masking support.
 
     Inputs/outputs use (B, L, d_model).  Heads are handled internally.
     """
@@ -132,11 +132,11 @@ class MultiHeadAttention(nn.Module):
 
 
 # -----------------------------------------------------------------------------
-# 3. Position‑wise feed‑forward network
+# 3. Position-wise feed-forward network
 # -----------------------------------------------------------------------------
 
 class FeedForward(nn.Module):
-    """Two‑layer MLP with GELU and dropout (used inside each Transformer block)."""
+    """Two-layer MLP with GELU and dropout (used inside each Transformer block)."""
 
     def __init__(self, d_model: int, d_ff: int, dropout: float = 0.1) -> None:
         super().__init__()
@@ -179,11 +179,11 @@ class PositionalEncoding(nn.Module):
 
 
 # -----------------------------------------------------------------------------
-# 5. Decoder block (self‑attention + FFN + residual/LayerNorm)
+# 5. Decoder block (self-attention + FFN + residual/LayerNorm)
 # -----------------------------------------------------------------------------
 
 class DecoderBlock(nn.Module):
-    """A single block of a decoder‑only Transformer (causal self‑attention)."""
+    """A single block of a decoder-only Transformer (causal self-attention)."""
 
     def __init__(
         self,
@@ -216,7 +216,7 @@ class DecoderBlock(nn.Module):
         x: torch.Tensor,  # (B,L,D)
         mask: Optional[torch.Tensor] = None,  # (L,L) or broadcastable additive
     ) -> torch.Tensor:
-        # pre‑norm
+        # pre-norm
         y = self.self_attn(self.ln1(x), mask)
         x = x + y  # residual
         y = self.ffn(self.ln2(x))

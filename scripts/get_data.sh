@@ -31,7 +31,7 @@ for split, hf_name in ("train", "validation"),:
             clean = _tidy(line)
             if clean:
                 f.write(clean + "\n")
-    print(f"✔ saved {out_file.relative_to(root.parent)} → {out_file.stat().st_size/1e6:.2f} MB")
+    print(f"saved {out_file.relative_to(root.parent)} → {out_file.stat().st_size/1e6:.2f} MB")
 PY
 
 echo "WikiText-2 cleaned files are in $ROOT"
