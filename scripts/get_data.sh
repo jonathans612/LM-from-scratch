@@ -24,8 +24,8 @@ root.mkdir(parents=True, exist_ok=True)
 
 ds = load_dataset("Salesforce/wikitext", "wikitext-2-raw-v1")
 
-for split, hf_name in ("train", "validation"),:
-    out_file = root / f"{('valid' if split=='validation' else split)}.txt"
+for split in ("train", "validation", "test"):
+    out_file = root / ("valid.txt" if split == "validation" else f"{split}.txt")
     with out_file.open("w", encoding="utf8") as f:
         for line in ds[split]["text"]:
             clean = _tidy(line)
