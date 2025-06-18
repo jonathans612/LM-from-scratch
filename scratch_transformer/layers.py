@@ -192,7 +192,7 @@ class DecoderBlock(nn.Module):
         *,
         n_heads:    int | None = None,  # alias support
         d_ff:       int | None = None,  # now truly optional
-        dropout:    float      = 0.1,
+        dropout:    float = 0.1,
     ) -> None:
         super().__init__()
 
