@@ -1,0 +1,14 @@
+{
+  "data_dir": "data/wikitext-2/cleaned",
+  "tok_file": "data/tokenizer/v1/tokenizer.json",
+
+  "seq_len": 64,          # short blocks = faster
+  "batch": 2,
+  "grad_accum": 1,
+
+  "d_model": 384,
+  "num_layers": 2,        # shallower than final model
+  "num_heads": 6,
+  "epochs": 1,            # only one pass
+  "ckpt_dir": "checkpoints_smoke"
+}
