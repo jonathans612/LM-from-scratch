@@ -1,0 +1,25 @@
+{
+  "data_dir": "data/wikitext-2/cleaned",
+  "tok_file": "data/tokenizer/v1/tokenizer.json",
+
+  # Start from epoch109 weights
+  init_ckpt:  "checkpoints_ft_3/epoch09.pt",
+
+  # ——— model capacity ———
+  "d_model": 512,       # width
+  "num_layers": 6,      # depth    
+  "num_heads": 8,       # 384 / 6 = 64 per head
+  "dropout": 0.15,
+
+  # ——— training hyper-params ———
+  "seq_len":   512,     # long enough to capture context, still <8 GB VRAM
+  "batch":     6,       # VRAM ~ 7 GB
+  "grad_accum": 8,      # effective batch = 48
+
+  "epochs": 20,
+  "lr": 4.0e-4,         # original was 3.0e-4
+  "warmup": 400,        # shorter ramp
+
+  "reset_scheduler": True,
+  "ckpt_dir": "checkpoints_ft"
+}

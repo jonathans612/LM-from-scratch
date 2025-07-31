@@ -1,0 +1,21 @@
+{
+  "data_dir": "data/wikitext-2/cleaned",
+  "tok_file": "data/tokenizer/v1/tokenizer.json",
+
+  # ——— model capacity ———
+  "d_model": 512,       # width
+  "num_layers": 6,      # depth    
+  "num_heads": 8,       # 384 / 6 = 64 per head
+  "dropout": 0.1,
+  
+  # ——— training hyper-params ———
+  "seq_len":   512,     # long enough to capture context, still <8 GB VRAM
+  "batch":     6,       # VRAM ~ 7 GB
+  "grad_accum": 6,      # effective batch = 36
+
+  "epochs": 300,
+  "lr": 3.0e-4,
+  "warmup": 400,         # shorter ramp
+
+  "ckpt_dir": "checkpoints_big"
+}
