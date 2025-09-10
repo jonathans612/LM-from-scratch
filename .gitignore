@@ -5,6 +5,6 @@ scratch_transformer.egg-info/
 # ---- large or derived artifacts ----
 data/wikitext-2/
 data/tokenizer/
-checkpoints/
-*.pt
+checkpoints*/
+# *.pt
 *.pth
