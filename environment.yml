@@ -1,0 +1,6 @@
+name: scratch-LM
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy[version='<2.0']

@@ -1,0 +1,4 @@
+PyYAML==6.0.2
+PyYAML==6.0.2
+tokenizers==0.22.0
+torch==2.2.2+cu121
